@@ -17,8 +17,9 @@ export default function Login() {
             const res = await login(form)
             localStorage.setItem('token', res.data.access_token)
             navigate('/')
-        } catch {
-            serError('Wrong email or password')
+        } catch (err) {
+            const msg = err.response?.data?.detail || 'Something went wrong'
+            serError(msg)
         } finally {
             setLoading(false)
         }

@@ -15,9 +15,10 @@ export default function Register() {
         setError('')
         try {
             await register(form)
-            navigate('login')
-        } catch {
-            setError('Email already registered')
+            navigate('/login')
+        } catch (err) {
+            const msg = err.response?.data?.detail || 'Something went wrong'
+            setError(msg)
         } finally {
             setLoading(false)
         }
