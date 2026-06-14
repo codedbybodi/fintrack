@@ -164,7 +164,17 @@ def ai_insights(db: Session = Depends(get_db), current_user: models.User = Depen
     transactions = db.query(models.Transaction).filter(models.Transaction.user_id == current_user.id).all()
 
     if not transactions:
-        return { "insights": "Add some transactions first to get AI insights!" }
+        return {
+            "insights": "Add some transactions first to get AI insights!",
+            "summary": {
+                "total_income": 0,
+                "total_expense": 0,
+                "balance": 0,
+                "saving_rate": 0,
+                "top_category": "N/A",
+                "top_category_amount": 0,
+            },
+        }
     
     total_income = sum(t.amount for t in transactions if t.type == "income")
     total_expense = sum(t.amount for t in transactions if t.type == "expense")
@@ -176,6 +186,7 @@ def ai_insights(db: Session = Depends(get_db), current_user: models.User = Depen
             categories[t.category] = categories.get(t.category, 0) + t.amount
     
     top_category = max(categories, key=categories.get) if categories else "N/A"
+    saving_rate = round((balance / total_income * 100), 1) if total_income > 0 else 0
 
     prompt = f"""You are a personal finance advisor. Analyze this user's fincances and give friendly, specific advice.
  
@@ -183,7 +194,7 @@ Financial Summary:
 - Total Income: {total_income:,.0f} EGP
 - Total Expenses: {total_expense:,.0f} EGP
 - Balance: {balance:,.0f} EGP
-- Saving Rate: {((balance/total_income)*100):.1f}% of income saved
+ - Saving Rate: {saving_rate:.1f}% of income saved
 - Top spending category: {top_category} ({categories.get(top_category, 0):,.0f} EGP)
 - Spending by category: {categories}
     
@@ -195,15 +206,19 @@ Give exactly 4 insights in this format:
      
     Keep it conversational, specific to their numbers, and under 200 words total."""
 
-    response = gemini_client.models.generate_content(model="gemini-3-flash-preview", contents=prompt)
+    try:
+        response = gemini_client.models.generate_content(model="gemini-3-flash-preview", contents=prompt)
+        insights_text = response.text or "I couldn't generate insights right now. Please try again in a moment."
+    except Exception:
+        insights_text = "AI insights are temporarily unavailable. Please try again later."
 
     return {
-        "insights" : response.text,
+        "insights" : insights_text,
         "summary": {
             "total_income": total_income,
             "total_expense": total_expense,
             "balance": balance,
-            "saving_rate": round((balance / total_income * 100), 1) if total_income > 0 else 0,
+            "saving_rate": saving_rate,
             "top_category": top_category,
             "top_category_amount": categories.get(top_category, 0)
         }

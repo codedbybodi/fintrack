@@ -26,6 +26,6 @@ export const getSummary = () => API.get('/dashboard/summary')
 export const getByCategory = () => API.get('/dashboard/by-category')
 export const getMonthly = () => API.get('/dashboard/monthly')
 
-export const getBudgets = () => API.get('/budget')
+export const getBudgets = () => API.get('/budgets')
 export const createBudget = (data) => API.post('/budgets', data)
 export const getAIInsights = (data) => API.post('/ai/insights', data)
