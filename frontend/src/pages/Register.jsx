@@ -17,7 +17,7 @@ export default function Register() {
             await register(form)
             navigate('/login')
         } catch (err) {
-            const msg = err.response?.data?.detail || 'Something went wrong'
+            const msg = err.response?.data?.detail || (err.request ? 'Cannot connect to server' : 'Something went wrong')
             setError(msg)
         } finally {
             setLoading(false)

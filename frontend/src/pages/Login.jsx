@@ -18,7 +18,7 @@ export default function Login() {
             localStorage.setItem('token', res.data.access_token)
             navigate('/')
         } catch (err) {
-            const msg = err.response?.data?.detail || 'Something went wrong'
+            const msg = err.response?.data?.detail || (err.request ? 'Cannot connect to server' : 'Something went wrong')
             serError(msg)
         } finally {
             setLoading(false)
