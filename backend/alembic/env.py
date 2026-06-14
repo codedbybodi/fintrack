@@ -1,6 +1,7 @@
+import os
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
+from sqlalchemy import engine_from_config, create_engine
 from sqlalchemy import pool
 
 from alembic import context
@@ -14,18 +15,18 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# Override sqlalchemy.url with DATABASE_URL environment variable (for Railway)
+# Railway provides postgres:// but psycopg2 requires postgresql://
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    database_url = database_url.replace("postgres://", "postgresql://")
+    config.set_main_option("sqlalchemy.url", database_url)
+
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
 from db import Base
 import models
 target_metadata = Base.metadata
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 
 def run_migrations_offline() -> None:
