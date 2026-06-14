@@ -32,7 +32,7 @@ export default function AIInsights() {
             </div>
 
             {!data && !loading && (
-                <div className="bg-dark-Card border border-dark-border rounded-xl p-12 text-center">
+                <div className="bg-dark-card border border-dark-border rounded-xl p-12 text-center">
                     <div className="w-14 h-14 bg-[#0f2a1e] rounded-2xl flex items-center justify-center mx-auto mb-4">
                         <Sparkles size={24} className="text-brand-green" />
                     </div>
@@ -51,7 +51,7 @@ export default function AIInsights() {
 
             {/* Loading */}
             {loading && (
-                <div className="bg-dark-Card border border-dark-border rounded-xl p-12 text-center">
+                <div className="bg-dark-card border border-dark-border rounded-xl p-12 text-center">
                     <div className="w-6 h-6 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
                     <p className="text-sm text-[#555570]">Analyzing your finances...</p>
                 </div>
@@ -69,7 +69,7 @@ export default function AIInsights() {
                     </div>
 
                     {/* AI Analysis */}
-                    <div className="bg-dark-Card border border-dark-border rounded-xl p-6">
+                    <div className="bg-dark-card border border-dark-border rounded-xl p-6">
                         <div className="flex items-center gap-2 mb-4">
                             <div className="w-7 h-7 bg-[#0f2a1e] rounded-lg flex items-center justify-center">
                                 <Sparkles size={14} className="text-brand-green" />
@@ -98,7 +98,7 @@ export default function AIInsights() {
 
 function SummaryCard({ icon, label, value, color }) {
     return (
-        <div className="bg-dark-Card border border-dark-border rounded-xl p-4">
+        <div className="bg-dark-card border border-dark-border rounded-xl p-4">
             <div className="flex items-center gap-1.5 text-[10px] text-[#555570] uppercase tracking-wider mb-2">
                 {icon} {label}
             </div>

@@ -35,7 +35,7 @@ export default function Login() {
                     <span className="text-2xl font-semibold text-white tracking-tight">FinTrack</span>
                 </div>
 
-                <div className="bg-dark-Card border border-dark-border rounded-2xl p-8">
+                <div className="bg-dark-card border border-dark-border rounded-2xl p-8">
                     <h1 className="text-xl font-semibold text-white mb-1">Welcome back</h1>
                     <p className="text-sm text-[#555570] mb-6">Sign in to your account</p>
 

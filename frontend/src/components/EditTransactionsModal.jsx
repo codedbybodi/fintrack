@@ -53,7 +53,7 @@ export default function EditTransactionModal({ transaction, onClose, onSuccess }
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-            <div className="bg-dark-Card border border-dark-border rounded-2xl p-6 w-full max-w-md">
+            <div className="bg-dark-card border border-dark-border rounded-2xl p-6 w-full max-w-md">
                 <div className="flex items-center justify-between mb-5">
                     <h2 className="text-base font-semibold text-white">Edit transaction</h2>
                     <button onClick={onClose} className="text-[#555570] hover:text-white transition-colors">
