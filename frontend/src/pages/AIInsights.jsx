@@ -63,7 +63,7 @@ export default function AIInsights() {
                     {/* Summary Card */}
                     <div className="grid grid-cols-4 gap-3">
                         <SummaryCard  icon={<Wallet size={14}/>} label="Balance" value={`${formatEGP(data.summary.balance)} EGP`} color={data.summary.balance >= 0 ? 'text-brand-green' : 'text-brand-red'} />
-                        <SummaryCard icon={<TrendingUp size={14} />} label="Saving rate" value={`${data.summary.savings_rate}%`} color="text-brand-blue" />
+                        <SummaryCard icon={<TrendingUp size={14} />} label="Saving rate" value={`${data.summary.saving_rate}%`} color="text-brand-blue" />
                         <SummaryCard icon={<PiggyBank size={14} />} label="Income" value={`${formatEGP(data.summary.total_income)} EGP`} color="text-white" />
                         <SummaryCard icon={<Zap size={14} />} label="Top spend" value={data.summary.top_category} color="text-brand-gold"/>
                     </div>
